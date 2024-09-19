@@ -22,29 +22,33 @@ const TaskList = () => {
 
     return (
         <div className={styles.taskList_container}>
-            <div className={styles.taskList}>
-                <h2 className={styles.title}>Suas tarefas de hoje</h2>
-                <ul className={styles.list}>
-                    {activeTasks.map(task => (
-                        <li key={task.id} className={styles.task}>
-                            <input
-                                type="checkbox"
-                                checked={task.completed}
-                                onChange={() => handleToggleTask(task.id)}
-                            />
-                            <span>{task.text}</span>
-                            <button
-                                className={styles.deleteButton}
-                                onClick={() => {
-                                    setSelectedTaskId(task.id);
-                                    setRemoveIsOpen(true);
-                                }}
-                            >
-                                <Trash2 />
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+            <div className={styles.taskList} style={todos.length <= 0 ? { display: "none" } : undefined}>
+                {activeTasks.length > 0 && (
+                    <>
+                        <h2 className={styles.subtitle}>Suas tarefas de hoje</h2>
+                        <ul className={styles.list}>
+                            {activeTasks.map(task => (
+                                <li key={task.id} className={styles.task}>
+                                    <input
+                                        type="checkbox"
+                                        checked={task.completed}
+                                        onChange={() => handleToggleTask(task.id)}
+                                    />
+                                    <span>{task.text}</span>
+                                    <button
+                                        className={styles.deleteButton}
+                                        onClick={() => {
+                                            setSelectedTaskId(task.id);
+                                            setRemoveIsOpen(true);
+                                        }}
+                                    >
+                                        <Trash2 />
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </>
+                )}
 
                 {completedTasks.length > 0 && (
                     <>
@@ -78,8 +82,8 @@ const TaskList = () => {
                 Adicionar nova tarefa
             </button>
 
-            {addIsOpen && <NewTask setIsOpen={setAddIsOpen} />}
-            {removeIsOpen && <RemoveTask setRemoveIsOpen={setRemoveIsOpen} selectedTaskId={selectedTaskId} />}
+            {addIsOpen && <NewTask setIsOpen={setAddIsOpen} isOpen={addIsOpen} />}
+            {removeIsOpen && <RemoveTask setRemoveIsOpen={setRemoveIsOpen} selectedTaskId={selectedTaskId} isOpen={removeIsOpen} />}
         </div>
     );
 };

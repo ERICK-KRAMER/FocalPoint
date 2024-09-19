@@ -1,50 +1,43 @@
 "use client";
 
-import { useRef } from 'react';
-import styles from './NewTask.module.scss';
+import React, { useRef } from 'react';
 import { useTodo } from '@/app/context/todoContext';
+import { Modal } from '../Modal/modal';
 
 type NewTaskProps = {
+    isOpen: boolean;
     setIsOpen: (isOpen: boolean) => void;
 };
 
-const NewTask = ({ setIsOpen }: NewTaskProps) => {
+const NewTask: React.FC<NewTaskProps> = ({ isOpen, setIsOpen }) => {
     const { addTodo } = useTodo();
     const todoRef = useRef<HTMLInputElement>(null);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (todoRef.current != null) {
+        if (todoRef.current && todoRef.current.value.trim() !== "") {
             addTodo(todoRef.current.value);
             setIsOpen(false);
         }
     };
 
     return (
-        <div className={styles.modal_container}>
-            <form className={styles.form} onSubmit={handleSubmit}>
-                <h2 className={styles.title}>Nova tarefa</h2>
-                <label htmlFor="title" className={styles.label}>
-                    Título
-                </label>
-                <input
-                    type="text"
-                    id="title"
-                    className={styles.input}
-                    placeholder="Digite"
-                    ref={todoRef}
-
-                />
-                <div className={styles.buttons}>
-                    <button type="button" className={styles.cancel} onClick={() => setIsOpen(false)}>
+        <Modal.Root isOpen={isOpen} >
+            <form onSubmit={handleSubmit}>
+                <Modal.Header title="Nova tarefa" />
+                <Modal.Body>
+                    <Modal.Input label='Text' ref={todoRef} placeholder='' />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Modal.Button variant="secondary" onClick={() => setIsOpen(false)}>
                         Cancelar
-                    </button>
-                    <button type="submit" className={styles.add}>
+                    </Modal.Button>
+                    <Modal.Button variant="primary" onClick={() => handleSubmit(new Event('submit') as unknown as React.FormEvent)}>
                         Adicionar
-                    </button>
-                </div>
+                    </Modal.Button>
+                </Modal.Footer>
             </form>
-        </div>
+        </Modal.Root>
     );
 };
 

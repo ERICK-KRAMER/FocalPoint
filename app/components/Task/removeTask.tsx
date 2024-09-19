@@ -1,43 +1,38 @@
-"use client";
-
+import React from 'react';
 import { useTodo } from '@/app/context/todoContext';
-import styles from './removeTask.module.scss';
+import { Modal } from '../Modal/modal';
 
 type RemoveTaskProps = {
+    isOpen: boolean;
     setRemoveIsOpen: (isOpen: boolean) => void;
     selectedTaskId: number | null;
 };
 
-const RemoveTask = ({ setRemoveIsOpen, selectedTaskId }: RemoveTaskProps) => {
-
+const RemoveTask: React.FC<RemoveTaskProps> = ({ isOpen, setRemoveIsOpen, selectedTaskId }) => {
     const { removeTodo } = useTodo();
-
-    const handleCancel = () => {
-        setRemoveIsOpen(false);
-    };
 
     const handleDelete = () => {
         if (selectedTaskId !== null) {
             removeTodo(selectedTaskId);
+            setRemoveIsOpen(false);
         }
-        setRemoveIsOpen(false);
     };
 
     return (
-        <div className={styles.deleteTaskModal}>
-            <div className={styles.modalContent}>
-                <h2>Deletar tarefa</h2>
+        <Modal.Root isOpen={isOpen}>
+            <Modal.Header title="Deletar tarefa" />
+            <Modal.Body>
                 <p>Tem certeza que você deseja deletar essa tarefa?</p>
-                <div className={styles.buttons}>
-                    <button className={styles.cancelButton} onClick={handleCancel}>
-                        Cancelar
-                    </button>
-                    <button className={styles.deleteButton} onClick={handleDelete}>
-                        Deletar
-                    </button>
-                </div>
-            </div>
-        </div>
+            </Modal.Body>
+            <Modal.Footer>
+                <Modal.Button variant="secondary" onClick={() => setRemoveIsOpen(false)}>
+                    Cancelar
+                </Modal.Button>
+                <Modal.Button variant="danger" onClick={handleDelete}>
+                    Deletar
+                </Modal.Button>
+            </Modal.Footer>
+        </Modal.Root>
     );
 };
 
