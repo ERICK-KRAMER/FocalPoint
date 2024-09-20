@@ -1,14 +1,15 @@
+$mobile-breakpoint: 480px;
+$mobile-width: 380px;
+
 .taskList_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
 }
+
 
 .taskList {
     width: 450px;
@@ -24,6 +25,10 @@
     overflow: hidden;
     font-family: Arial, sans-serif;
     color: black;
+
+    @media screen and (max-width: $mobile-breakpoint) {
+        width: $mobile-width;
+    }
 }
 
 .title {
@@ -112,4 +117,10 @@
     font-size: large;
     background: linear-gradient(90deg, #0796D3 0%, #53C0F0 68.65%);
     cursor: pointer;
+
+    @media screen and (max-width: $mobile-breakpoint) {
+        width: $mobile-width;
+        position: fixed;
+        bottom: 30px;
+    }
 }

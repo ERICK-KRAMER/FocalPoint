@@ -9,6 +9,16 @@
     justify-content: center;
     align-items: center;
     backdrop-filter: blur(2px);
+
+    @media screen and (max-width: 480px) {
+        .modalContent {
+            width: 350px;
+        }
+
+        background-color: white;
+        display: block;
+
+    }
 }
 
 .modalContent {
@@ -17,6 +27,14 @@
     border-radius: 8px;
     width: 450px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    @media screen and (max-width: 480px) {
+        width: 350px;
+        box-shadow: none;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
 }
 
 .modalTitle {
@@ -29,7 +47,7 @@
 .label {
     font-size: 16px;
     font-weight: 400;
-    color: #555;
+    color: #0000008A;
     margin-bottom: 8px;
     display: flex;
     flex-direction: column;
@@ -52,6 +70,10 @@
     display: flex;
     justify-content: space-between;
     gap: 16px;
+
+    @media screen and (max-width: 480px) {
+        flex-direction: column;
+    }
 }
 
 .button {
@@ -67,6 +89,7 @@
     &:hover {
         opacity: 0.8;
     }
+
 }
 
 .primary {

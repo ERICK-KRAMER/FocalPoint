@@ -22,7 +22,9 @@ const RemoveTask: React.FC<RemoveTaskProps> = ({ isOpen, setRemoveIsOpen, select
         <Modal.Root isOpen={isOpen}>
             <Modal.Header title="Deletar tarefa" />
             <Modal.Body>
-                <p>Tem certeza que você deseja deletar essa tarefa?</p>
+                <p style={{
+                    color: "#0000008A"
+                }}>Tem certeza que você deseja deletar essa tarefa?</p>
             </Modal.Body>
             <Modal.Footer>
                 <Modal.Button variant="secondary" onClick={() => setRemoveIsOpen(false)}>
