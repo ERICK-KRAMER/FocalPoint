@@ -26,10 +26,14 @@ const useTodo = () => {
 }
 
 const TodoContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [todos, setTodos] = useState<Todo[]>(() => {
+    const [todos, setTodos] = useState<Todo[]>([]);
+
+    useEffect(() => {
         const savedTodos = localStorage.getItem("todos");
-        return savedTodos ? JSON.parse(savedTodos) : [];
-    });
+        if (savedTodos) {
+            setTodos(JSON.parse(savedTodos));
+        }
+    }, []);
 
     useEffect(() => {
         localStorage.setItem("todos", JSON.stringify(todos));
